@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Yassinos_Customreports>
+      <active>true</active>
+      <codePool>community</codePool>
+      <version>1.0.0</version>
+    </Yassinos_Customreports>
+  </modules>
+</config>

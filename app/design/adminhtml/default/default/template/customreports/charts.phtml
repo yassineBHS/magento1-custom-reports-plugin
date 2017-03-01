@@ -1,0 +1,106 @@
+<?php
+
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This file is a limited source, part of the Magento module named "Yassinos_Customreports" 
+ * dedicated to add custom chart report before the grid which contain the most significant
+ * data in a magento site, orders by category, abondonned shopping carts by total amounts,
+ * Top 10 search terms, evolution of customers registration and addition, 
+ * products in the cart grouped by categories ..
+ * 
+ * The objective of this module is to give an analytical visibility to the administrator of
+ * a web shop on the categories of the products most in demand the most abundant ones,
+ * factors that directly affect the increase in sales .. the augmantaions Of registrants 
+ * and the addition of customer groups and their contributions to sales trends.
+ * Among the indirect objectives is to facilitate the web shop owner to manage the sales
+ * promotions and optimize his marketing strategies based on significant graphical reports 
+ * and presenters starting from the same site history.
+ * Note that this module is still optimized to further improve reporting and give the user
+ * the ability to customize his reports, and add even more profound functionalities.
+ * 
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this module to newer
+ * versions in the future. If you wish to customize this module for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category   Yassinos
+ * @package    Yassinos_Customreports
+ * @copyright  Copyright (c) Yassine BELHAJ SALAH . (http://www.yassine-belhajsalah.com)
+ */
+
+?>
+<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+<script>
+    <?php
+    if($this->getReport() == "order"):
+    $monthlyOrderStatistics = $this->getMonthlyOrderStatistics();
+    $dates = json_encode(array_keys($monthlyOrderStatistics["average"]));
+    $average = json_encode(array_values($monthlyOrderStatistics["average"]));
+    $series = json_encode($monthlyOrderStatistics["average_by_category"]);
+    $categoryContribution = json_encode($monthlyOrderStatistics["category_contribution"]);
+    ?>
+    getCombinedReportChart('<?php echo $this->__("Order tracking report") ?>',
+    "<?php echo $this->__('Categories Contribution') ?>",
+    'container',
+    <?php echo $dates ?>,
+    <?php echo $average ?>,
+     <?php echo $series ?>,
+    <?php echo $categoryContribution ?>
+    );
+    
+    <?php 
+    elseif($this->getReport() == "customers" && 
+            ($monthlyCustomerStatistics = $this->getMonthlyCustomerStatistics()) &&
+            count($monthlyCustomerStatistics['xAxis'])) :
+    ?>
+    
+    getStackedColumnsChart("<?php echo $this->__('User\'s group inscriptions mounthly stacked') ?>",
+    "<?php echo $this->__('Mounthly Inscriptions Number') ?>",
+    'container',<?php echo $monthlyCustomerStatistics['xAxis'] ?>,
+    <?php echo $monthlyCustomerStatistics['data'] ?>
+    );
+    
+    
+    <?php elseif($this->getReport() == "abondonnedcart" && ($this->getCollection()->getSize() > 0)) : ?>
+    <?php $abondonnedShopCartsStatistics = $this->getAbonndonnedShopCartsStatistics($this->getCollection()); ?>
+    
+    getStackedAreaChart('container',
+    "<?php echo $this->__('Abondonned Carts Evolution By Customer Group') ?>",
+    "<?php echo $this->__('Grand Total') ?>",
+    <?php echo $abondonnedShopCartsStatistics['xAxis'] ?>,
+    <?php echo $abondonnedShopCartsStatistics['series'] ?>
+    );
+    
+    <?php elseif($this->getReport() == "searchTerms" && ($this->getCollection()->getSize() > 0)) : ?>
+        <?php $searchTermsData = $this->getToSearchTermsStatistics($this->getCollection()); ?>
+        
+        get3DChart('container',
+        "<?php echo $this->__('Top 10 Searched Terms') ?>",
+        <?php echo $searchTermsData['xAxis'] ?>,
+        <?php echo $searchTermsData['data'] ?>
+    );
+    
+    <?php elseif(($this->getReport() == "sales") && ($this->getCollection()->getSize() > 0)) : ?>
+        
+        <?php $salesStatistics = $this->getSalesStatistics($this->getCollection()); ?>
+        getLineChart('container',
+        "<?php echo $this->__('Total Ordered Chart Report') ?>",
+        <?php echo $salesStatistics['xAxis'] ?>,
+        <?php echo $salesStatistics['data'] ?>
+    );
+    
+    <?php elseif(($this->getReport() == "products_incart") && ($this->getCollection()->getSize() > 0)) : ?>
+    getPieChart('container',
+    "<?php echo $this->__('Categories Contribution on th number of products in cart') ?>",
+    <?php echo $this->getProductsInCartStatistics($this->getCollection()) ?>
+            );
+        
+    <?php else: ?>
+        document.getElementById('container').hidden = true;
+    <?php endif ?>
+</script>
