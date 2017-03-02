@@ -26,23 +26,23 @@ Pas de grande variété technique dans ce module puisqu'il ne demande que:
 Ce module est encore évolutif et on compte l'évoluer prochainement pour donner la main à l'administrateur de web shop de personaliser les rapports qu'il compte les faire, sauvegarder et générer des rapports journals , hébdomadaires, mensuels ... créer d'autres variétés de reporting .. ce module sera aussi traduit en Magento 2 trés bientot.
 
 ## II - Examples : 
-### 1 - Abondonned Carts report : 
+### 1 - Rapport sur les paniers abondonnées : 
 ![abondonned_carts_1](https://cloud.githubusercontent.com/assets/25680893/23460893/ce48aa98-fe87-11e6-9917-9728a816ef14.png)
 
-### 2 - Customer's inscription evolution :
+### 2 - Rapport sur l'évolution des inscriptions des utilisateurs :
 
 ![customer_reports](https://cloud.githubusercontent.com/assets/25680893/23460931/f5aed968-fe87-11e6-8d50-fdf7c92b239f.png)
 
-### 3 - order Categories contribution report :
+### 3 - Rapport de contributions des catégories dans les commandes :
 
 ![orders_report](https://cloud.githubusercontent.com/assets/25680893/23460956/103d55c0-fe88-11e6-808b-01ececa71efb.png)
 
 
-### 4 - Searched Terms report :
+### 4 - Rapport sur les termes recherché :
 
 ![searchedterms](https://cloud.githubusercontent.com/assets/25680893/23460980/26cb9338-fe88-11e6-8f68-681c107c0611.png)
 
-### 5 - Abondonned Carts report :
+### 5 - Rapport sur le total de commandes :
 
  
 ![total_ordered_report](https://cloud.githubusercontent.com/assets/25680893/23460993/359d3f88-fe88-11e6-8a56-e6d7ba947b45.png)
